@@ -1,0 +1,20 @@
+# Local dependencies and generated output
+node_modules/
+dist/
+coverage/
+logs/
+public/
+data/
+
+# Local configuration and repository metadata
+.env
+.env.*
+!.env.example
+.git/
+.gitignore
+.DS_Store
+
+# Credentials and private key material
+keys/
+*.pem
+*.key

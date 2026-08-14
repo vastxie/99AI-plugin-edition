@@ -1,0 +1,8 @@
+@import './base.css';
+@import './themes/light.css';
+@import './themes/dark.css';
+@import './components.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

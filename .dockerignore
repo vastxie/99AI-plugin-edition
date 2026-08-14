@@ -1,0 +1,33 @@
+.git
+.github
+**/.DS_Store
+**/node_modules
+.pnpm-store
+**/dist
+**/dist-*
+**/coverage
+**/*.log
+**/.env
+**/.env.*
+!**/.env.example
+# 前端 Vite 构建配置不含服务端密钥，需要进入构建上下文。
+!chat/.env
+!chat/.env.production
+!admin/.env.development
+!admin/.env.production
+!admin/.env.test
+service/public
+docs
+99AIPluginQuickDeploy
+.99ai-quick-deploy.*
+# AI 助手本地配置与说明文件
+**/.claude
+**/CLAUDE.md
+**/CLAUDE.local.md
+**/AGENTS.md
+**/AGENT.md
+**/GEMINI.md
+**/.cursor
+**/.cursorrules
+**/.windsurfrules
+**/.codex

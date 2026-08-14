@@ -1,0 +1,73 @@
+services:
+  mysql:
+    image: mysql:8.4@sha256:b3b90af2a6552ae30c266fdb7d5dd55f3afb72404bb78d37fe8a23eb857fd3fb
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE:-chatgpt}
+      MYSQL_USER: ${DB_USER:-chatgpt}
+      MYSQL_PASSWORD: ${DB_PASS:?set DB_PASS}
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7.4-alpine@sha256:e7723ff73d963f5cc6d9c4643ea3d989527a402a319239054e9472a7fb9219a2
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?set REDIS_PASSWORD}"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a $$REDIS_PASSWORD ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?set REDIS_PASSWORD}
+
+  service:
+    build:
+      context: ..
+      dockerfile: service/Dockerfile
+    restart: unless-stopped
+    ports:
+      - '9520:9520'
+    volumes:
+      - uploaded_files:/app/public/file
+      - app_logs:/app/logs
+    environment:
+      PORT: 9520
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-chatgpt}
+      DB_PASS: ${DB_PASS:?set DB_PASS}
+      DB_DATABASE: ${DB_DATABASE:-chatgpt}
+      DB_SYNC: ${DB_SYNC:-false}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?set REDIS_PASSWORD}
+      REDIS_DB: ${REDIS_DB:-0}
+      INITIAL_ADMIN_USERNAME: ${INITIAL_ADMIN_USERNAME:-super}
+      INITIAL_ADMIN_PASSWORD: ${INITIAL_ADMIN_PASSWORD:?set INITIAL_ADMIN_PASSWORD}
+      INITIAL_ADMIN_EMAIL: ${INITIAL_ADMIN_EMAIL:-admin@localhost.invalid}
+      CORS_ORIGINS: ${CORS_ORIGINS:?set CORS_ORIGINS}
+      MCP_TOOL_ALLOWED_ROLES: ${MCP_TOOL_ALLOWED_ROLES:-}
+      MCP_TOOL_ALLOWLIST: ${MCP_TOOL_ALLOWLIST:-}
+      NAMESPACE: ${NAMESPACE:-99AIPlugin}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+  redis_data:
+  uploaded_files:
+  app_logs:

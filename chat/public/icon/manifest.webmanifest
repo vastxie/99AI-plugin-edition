@@ -1,0 +1,8 @@
+{
+  "name": "99AI Plugin Edition",
+  "short_name": "99AI Plugin",
+  "icons": [],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

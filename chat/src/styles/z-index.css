@@ -1,0 +1,74 @@
+/* 
+ * Z-Index 层级管理系统
+ * 统一管理所有组件的层级关系，避免层级冲突
+ */
+
+:root {
+  /* 背景层 (0-9) */
+  --z-background: 0;
+  --z-background-image: 1;
+  --z-background-overlay: 2;
+
+  /* 内容层 (10-19) */
+  --z-content: 10;
+  --z-content-elevated: 15;
+
+  /* 交互层 (20-29) */
+  --z-button: 20;
+  --z-floating-button: 25;
+
+  /* 导航层 (30-39) */
+  --z-header: 30;
+  --z-sidebar: 35;
+  --z-nav-overlay: 38;
+
+  /* 弹出层 (40-49) */
+  --z-dropdown: 40;
+  --z-tooltip: 45;
+  --z-popover: 48;
+
+  /* 模态框层 (50-59) */
+  --z-modal: 50;
+  --z-modal-overlay: 49;
+  --z-dialog: 55;
+
+  /* 全局提示层 (60-69) */
+  --z-notification: 60;
+  --z-toast: 65;
+
+  /* 最高层级 (70+) */
+  --z-image-viewer: 70;
+  --z-global-message: 99;
+}
+
+/* Tailwind 兼容类 */
+.z-background {
+  z-index: var(--z-background);
+}
+.z-content {
+  z-index: var(--z-content);
+}
+.z-button {
+  z-index: var(--z-button);
+}
+.z-header {
+  z-index: var(--z-header);
+}
+.z-sidebar {
+  z-index: var(--z-sidebar);
+}
+.z-dropdown {
+  z-index: var(--z-dropdown);
+}
+.z-modal {
+  z-index: var(--z-modal);
+}
+.z-notification {
+  z-index: var(--z-notification);
+}
+.z-image-viewer {
+  z-index: var(--z-image-viewer);
+}
+.z-global-message {
+  z-index: var(--z-global-message);
+}

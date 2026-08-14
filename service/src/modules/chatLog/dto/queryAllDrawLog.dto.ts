@@ -1,0 +1,28 @@
+import { IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class QuerAllDrawLogDto {
+  @ApiProperty({ example: 1, description: '查询页数', required: false })
+  @IsOptional()
+  page: number;
+
+  @ApiProperty({ example: 10, description: '每页数量', required: false })
+  @IsOptional()
+  size: number;
+
+  @ApiProperty({
+    example: 99,
+    description: '生成图片的用户id',
+    required: false,
+  })
+  @IsOptional()
+  userId: number;
+
+  @ApiProperty({
+    example: 'DALL-E2',
+    description: '生成图片使用的模型',
+    required: false,
+  })
+  @IsOptional()
+  model: string;
+}

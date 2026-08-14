@@ -1,0 +1,45 @@
+.DS_Store
+.pnpm-store/
+
+# Build artifacts
+dist/
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+
+# Dependencies（各子工程另有自己的 .gitignore，此处兜底）
+node_modules/
+
+# AI 助手本地配置与说明文件，不进入仓库
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+AGENT.md
+GEMINI.md
+.cursor/
+.cursorrules
+.windsurfrules
+.codex/
+
+# Secrets, local uploads, and generated releases
+99AIPluginQuickDeploy/
+.99ai-quick-deploy.*/
+.env
+.env.*
+!.env.example
+!**/.env.example
+# Vite 客户端配置只包含可公开的构建变量，必须进入新仓库。
+!chat/.env
+!chat/.env.production
+!admin/.env.development
+!admin/.env.production
+!admin/.env.test
+*.pem
+*.key
+*.p12
+*.pfx
+service/keys/
+service/public/

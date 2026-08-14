@@ -1,0 +1,35 @@
+import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
+import { BaseEntity } from 'src/common/entity/baseEntity';
+import { UserEntity } from '../user/user.entity';
+
+@Entity({ name: 'balance' })
+export class BalanceEntity extends BaseEntity {
+  @Column({ comment: '用户ID', nullable: true })
+  userId: number;
+
+  @ManyToOne(() => UserEntity, {
+    onDelete: 'SET NULL',
+    nullable: true,
+    createForeignKeyConstraints: false,
+  })
+  @JoinColumn({ name: 'userId' })
+  user: UserEntity;
+
+  @Column({ comment: '用户账户余额' })
+  balance: number;
+
+  @Column({ comment: '用户使用次数余额' })
+  usesLeft: number;
+
+  @Column({ comment: '绘画使用次数余额' })
+  paintCount: number;
+
+  @Column({ default: 0, comment: '用户总计使用的token数量' })
+  useTokens: number;
+
+  @Column({ default: 0, comment: '用户总计使用的对话次数' })
+  useChats: number;
+
+  @Column({ default: 0, comment: '用户总计使用的绘画次数' })
+  usePaints: number;
+}

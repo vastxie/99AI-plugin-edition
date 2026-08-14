@@ -1,0 +1,37 @@
+[
+  {
+    "_comment": "预设配置示例说明",
+    "_fields": {
+      "title": "预设标题",
+      "description": "预设描述",
+      "prompt": "提示词模板，支持 {{input:占位符}} 和 {{select:选项1|选项2}}",
+      "icon": "图标类名",
+      "iconColor": "Tailwind颜色类",
+      "appId": "（可选）应用ID，设置后会创建该应用的聊天组",
+      "pluginParameters": "（可选）插件参数，如 'ppt-generation' 或 'mermaid'"
+    }
+  },
+  {
+    "title": "示例：使用应用",
+    "description": "这个预设会启动特定应用",
+    "prompt": "额外的提示词（会追加到应用默认提示词后）",
+    "icon": "ri:apps-line",
+    "iconColor": "text-blue-500",
+    "appId": 123
+  },
+  {
+    "title": "示例：使用插件",
+    "description": "这个预设会启用PPT插件",
+    "prompt": "生成一个关于{{input:主题}}的PPT",
+    "icon": "ri:slideshow-line",
+    "iconColor": "text-purple-500",
+    "pluginParameters": "ppt-generation"
+  },
+  {
+    "title": "示例：普通预设",
+    "description": "普通的提示词预设",
+    "prompt": "写一篇{{select:议论文|记叙文}}，主题是{{input:输入主题}}",
+    "icon": "ri:file-text-line",
+    "iconColor": "text-green-500"
+  }
+]

@@ -1,0 +1,148 @@
+/* 这个文件可以用于放置其他组件样式 */
+
+/* 胶囊按钮样式 */
+.btn-pill {
+  @apply px-4 py-1.5 rounded-full text-sm transition-all cursor-pointer select-none;
+  @apply bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300;
+  @apply hover:bg-gray-200 dark:hover:bg-gray-700;
+}
+
+.btn-pill-active {
+  @apply bg-primary-500 text-white;
+  @apply hover:bg-primary-600;
+}
+
+.btn-pill.btn-md {
+  @apply px-3 py-1.5 text-sm;
+}
+
+/* 图标按钮样式 */
+.btn-icon {
+  @apply p-2 rounded-full transition-all cursor-pointer;
+  @apply bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300;
+  @apply hover:bg-gray-200 dark:hover:bg-gray-700;
+}
+
+.btn-icon.btn-md {
+  @apply p-1.5;
+}
+
+/* 按钮基础样式 */
+.btn {
+  @apply inline-flex items-center justify-center rounded-md font-medium transition-all cursor-pointer select-none;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  border-width: var(--btn-border-width);
+}
+
+/* 按钮尺寸 */
+.btn-md {
+  @apply px-4 py-2 text-sm;
+}
+
+/* Primary 按钮样式 */
+.btn-primary {
+  background-color: var(--btn-bg-primary);
+  color: var(--btn-text-primary);
+  border-color: var(--btn-border-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--btn-bg-primary-hover);
+  border-color: var(--btn-border-primary-hover);
+}
+
+.btn-primary:active:not(:disabled) {
+  background-color: var(--btn-bg-primary-active);
+  border-color: var(--btn-border-primary-active);
+}
+
+/* Secondary 按钮样式 */
+.btn-secondary {
+  background-color: var(--btn-bg-secondary);
+  color: var(--btn-text-secondary);
+  border-color: var(--btn-border-secondary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--btn-bg-secondary-hover);
+  border-color: var(--btn-border-secondary-hover);
+}
+
+.btn-secondary:active:not(:disabled) {
+  background-color: var(--btn-bg-secondary-active);
+  border-color: var(--btn-border-secondary-active);
+}
+
+/* Danger 按钮样式 - 淡化的危险操作按钮 */
+.btn-danger {
+  @apply bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300;
+  @apply hover:border-red-400 hover:text-red-500 dark:hover:border-red-400 dark:hover:text-red-400;
+  @apply hover:bg-red-50 dark:hover:bg-red-950/10;
+  @apply active:bg-red-100 dark:active:bg-red-950/20;
+  @apply transition-colors duration-200;
+}
+
+/* 隐藏滚动条样式 */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tooltip 样式 - 解决被父元素裁剪的问题 */
+.group-btn {
+  position: relative;
+  /* 不设置 overflow，让 tooltip 可以溢出 */
+}
+
+.tooltip {
+  @apply absolute px-2 py-1 text-xs text-white bg-gray-800 dark:bg-gray-900 rounded opacity-0 pointer-events-none transition-all duration-200 whitespace-nowrap shadow-md;
+  /* 使用高 z-index 确保在最上层 */
+  z-index: 9999;
+}
+
+/* Tooltip 位置 - 向上显示 */
+.tooltip-top {
+  @apply bottom-full left-1/2 transform -translate-x-1/2 mb-2;
+}
+
+/* Tooltip 位置 - 向下显示 */
+.tooltip-bottom {
+  @apply top-full left-1/2 transform -translate-x-1/2 mt-2;
+}
+
+/* Tooltip 位置 - 向左显示 */
+.tooltip-left {
+  @apply right-full top-1/2 transform -translate-y-1/2 mr-2;
+}
+
+/* Tooltip 位置 - 向右显示 */
+.tooltip-right {
+  @apply left-full top-1/2 transform -translate-y-1/2 ml-2;
+}
+
+/* 自动调整位置的 tooltip */
+.tooltip-auto {
+  @apply bottom-full left-1/2 transform -translate-x-1/2 mb-2;
+}
+
+/* 当悬停在按钮上时显示 tooltip */
+.group-btn:hover .tooltip,
+.group:hover .tooltip {
+  @apply opacity-100;
+}
+
+/* 确保父容器不会裁剪 tooltip */
+.group-btn,
+.relative.group-btn {
+  /* 允许内容溢出 */
+  overflow: visible !important;
+}
+
+/* 对于可能限制 tooltip 的父元素，确保不会裁剪 */
+.flex.group {
+  overflow: visible !important;
+}
