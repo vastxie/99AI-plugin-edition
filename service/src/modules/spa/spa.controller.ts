@@ -27,6 +27,7 @@ export class SpaController {
 
     // 跳过API请求和静态资源目录请求
     if (
+      req.path === '/health' ||
       req.path.startsWith('/api') ||
       req.path.startsWith('/file') ||
       req.path.startsWith(this.adminPath)

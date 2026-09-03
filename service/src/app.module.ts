@@ -43,7 +43,7 @@ import { VerificationModule } from './modules/verification/verification.module';
   imports: [
     DatabaseModule,
     RateLimitModule,
-    // 注册在 SpaModule 之前，避免 GET /health 被 SPA 兜底路由接管
+    // 探活在 /api/health。SpaController 跳过 /health，避免根路径 HTML 被误当成存活。
     HealthModule,
     ServeStaticModule.forRoot(
       {

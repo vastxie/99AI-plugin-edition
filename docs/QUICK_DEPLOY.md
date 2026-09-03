@@ -41,4 +41,4 @@ pnpm start
 # 或 ./start.sh
 ```
 
-默认监听 `9520`：用户端 `/`，管理端 `/admin`，健康检查 `GET /health`。
+默认监听 `9520`：用户端 `/`，管理端 `/admin`，健康检查 `GET /api/health`。
