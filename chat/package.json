@@ -13,13 +13,13 @@
   "scripts": {
     "start:h": "pnpm run -C ../service dev",
     "start:f": "vite",
-    "all": "pnpm run --parallel '/^start:(h|f)$/'",
+    "all": "pnpm run '/^start:(h|f)$/'",
     "dev": "vite",
     "build-check": "pnpm type-check && pnpm build",
     "preview": "vite preview",
     "build": "vite build --mode=production",
     "type-check": "vue-tsc --noEmit",
-    "bootstrap": "pnpm install && pnpm run common:prepare",
+    "bootstrap": "pnpm install --frozen-lockfile",
     "common:cleanup": "rimraf node_modules && rimraf pnpm-lock.yaml",
     "format": "prettier --write '{src,scripts,config}/**/*.{vue,ts,tsx,js,jsx,css,scss,less,json,md,html,yml,yaml}' '*.{js,ts,json,md,yml}'",
     "format:check": "prettier --check '{src,scripts,config}/**/*.{vue,ts,tsx,js,jsx,css,scss,less,json,md,html,yml,yaml}' '*.{js,ts,json,md,yml}'"

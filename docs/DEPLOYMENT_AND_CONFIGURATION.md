@@ -19,7 +19,7 @@ cd 99AI-plugin-edition/service
 cp .env.example .env
 ```
 
-至少修改以下值：
+至少修改以下值。`cp .env.example .env` 后必须填写 `INITIAL_ADMIN_PASSWORD`：示例值为空，`CHANGE_ME_REQUIRED` 等占位符会被服务拒绝。
 
 ```dotenv
 MYSQL_ROOT_PASSWORD=<独立的强随机密码>
@@ -130,7 +130,7 @@ docker compose logs --tail=100 service
 
 - SMTP 邮箱或短信验证码：用于真实普通用户注册
 - 微信公众号：登录、绑定、迁移及菜单
-- 支付渠道：商户号、证书、回调与返回 URL
+- 支付渠道：商户号、证书、回调与返回 URL。Stripe/PayPal 回调基址来自 `.env` 的 `API_URL`，支付完成跳转来自 `CLIENT_URL`；未设置时分别回退到 `http://localhost:9520` 与 `http://localhost:9002`。生产支付必须改为公网 HTTPS，并在 `docker-compose.yml` 中传入这两项。
 - 图片、视频、音乐、搜索、向量、MCP 等服务
 
 未配置的外部服务应保持关闭。支付上线前必须使用沙箱和真实回调各验证一次签名、重复通知与订单幂等。
