@@ -25,8 +25,11 @@ export class SpaController {
     // 记录请求路径
     // this.logger.debug(`收到请求: ${req.path}`);
 
+    const requestPath = req.path.replace(/(?:\/|%2f)+$/gi, '') || '/';
+
     // 跳过API请求和静态资源目录请求
     if (
+      requestPath === '/health' ||
       req.path.startsWith('/api') ||
       req.path.startsWith('/file') ||
       req.path.startsWith(this.adminPath)

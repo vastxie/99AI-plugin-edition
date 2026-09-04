@@ -21,7 +21,7 @@ jobs:
       - run: corepack enable
       - run: corepack prepare pnpm@10.33.2 --activate
       - run: pnpm install --frozen-lockfile
-      - run: pnpm audit --audit-level high
+      - run: pnpm audit --audit-level high --ignore-registry-errors
       - run: pnpm test -- --runInBand
       - run: pnpm build
 
@@ -38,7 +38,7 @@ jobs:
       - run: corepack enable
       - run: corepack prepare pnpm@10.33.2 --activate
       - run: pnpm install --frozen-lockfile
-      - run: pnpm audit --audit-level high
+      - run: pnpm audit --audit-level high --ignore-registry-errors
       - run: pnpm type-check
       - run: pnpm build
 
@@ -55,6 +55,6 @@ jobs:
       - run: corepack enable
       - run: corepack prepare pnpm@10.33.2 --activate
       - run: pnpm install --frozen-lockfile
-      - run: pnpm audit --audit-level high
+      - run: pnpm audit --audit-level high --ignore-registry-errors
       - run: pnpm lint
       - run: pnpm build

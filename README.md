@@ -52,7 +52,7 @@ cd 99AI-plugin-edition
 99AIPluginQuickDeploy/
 ```
 
-目录中已经包含服务端 `dist/`、用户端与管理端静态文件、生产依赖清单、环境变量模板和启动脚本。将该目录复制到部署服务器后执行：
+目录中已经包含服务端 `dist/`、用户端与管理端静态文件、生产依赖清单、环境变量模板和启动脚本。生成目录内的 `README.md` 只描述该扁平布局的启动方式；源码仓库的 `cd service` / `docker compose` 路径不适用于此目录。将该目录复制到部署服务器后执行：
 
 ```bash
 cp .env.example .env
@@ -73,7 +73,7 @@ cd 99AI-plugin-edition/service
 cp .env.example .env
 ```
 
-编辑 `.env`，至少设置：
+编辑 `.env`，至少设置（`INITIAL_ADMIN_PASSWORD` 示例值为空，占位符会被拒绝）：
 
 ```dotenv
 MYSQL_ROOT_PASSWORD=<独立的强随机密码>

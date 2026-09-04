@@ -120,6 +120,7 @@ async function bootstrap(): Promise<void> {
     optionsSuccessStatus: 204,
   });
 
+  // exclude 的 path:'*' 只匹配 SpaController 的 @Get('*')，不会去掉其它 GET 的 /api 前缀。
   app.setGlobalPrefix('/api', {
     exclude: [{ path: '*', method: RequestMethod.GET }],
   });

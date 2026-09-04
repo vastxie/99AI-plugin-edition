@@ -26,8 +26,8 @@ pnpm dev
 
 ## 运行时约定
 
-- 监听端口 `PORT`（默认 9520）；健康检查为 `GET /health`，Docker 镜像已内置 `HEALTHCHECK`。
-- 全局路由前缀为 `/api`，但 **GET 路由被排除在前缀之外**（见 `src/main.ts` 的 `setGlobalPrefix` exclude 配置），因此 GET 接口注册在根路径下。
+- 监听端口 `PORT`（默认 9520）；健康检查为 `GET /api/health`，Docker 镜像已内置 `HEALTHCHECK`。根路径 `GET /health` 不是探活接口。
+- 全局路由前缀为 `/api`。`setGlobalPrefix` 的 `exclude: { path: '*', method: GET }` 只把 `SpaController` 的 `@Get('*')` 留在根路径，其它 GET 接口仍在 `/api` 下。
 - JWT Secret 在首次启动时自动生成并写入 Redis，无硬编码兜底；丢失 Redis 数据等同于所有登录态失效。
 - 初始管理员由 `INITIAL_ADMIN_*` 环境变量种入：弱密码、过短密码会直接拒绝启动。
 - 生产环境必须设置 `CORS_ORIGINS`，否则启动即报错；`DB_SYNC` 仅首次建表时临时开启。
