@@ -56,7 +56,7 @@ RUN mkdir -p public/file logs && chown -R node:node public logs
 
 USER node
 EXPOSE 9520
-# 存活检查走 /api/health（GET 与其它方法一样带 /api 前缀）。勿用 /health：SPA 兜底会返回 200 HTML。
+# 存活检查走 /api/health（GET 与其它方法一样带 /api 前缀）。/health 未挂载 API，会返回 404。
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
   CMD ["node", "-e", "const p=process.env.PORT||9520;fetch('http://127.0.0.1:'+p+'/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
 CMD ["node", "dist/main.js"]
