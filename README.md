@@ -1,5 +1,7 @@
 # 99AI Plugin Edition
 
+English | [中文](README.zh-CN.md)
+
 <div align="center">
 
 **A self-hosted AI web platform — chat, plugins, agents, and an ops console in one repo.**
