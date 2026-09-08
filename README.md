@@ -2,109 +2,61 @@
 
 <div align="center">
 
-**可自托管的一站式 AI Web 平台 · 对话、插件、Agent 与运营后台都在仓库里。**
+**A self-hosted AI web platform — chat, plugins, agents, and an ops console in one repo.**
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-20--24-339933.svg)](https://nodejs.org/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg)](https://docs.docker.com/compose/)
 [![GitHub stars](https://img.shields.io/github/stars/vastxie/99AI-plugin-edition?style=social)](https://github.com/vastxie/99AI-plugin-edition/stargazers)
 
-作者与维护者：[vastxie](https://github.com/vastxie)
+Author and maintainer: [vastxie](https://github.com/vastxie)
 
-如果这个项目对你有帮助，欢迎点亮右上角的 **Star ⭐**，也欢迎一起维护。
-
-<br />
-
-<img src="docs/assets/social-preview.png" alt="99AI Plugin Edition：自托管 AI Web 平台，NestJS + Vue3" width="100%">
+If this project helps you, a **Star ⭐** is appreciated — contributions are welcome too.
 
 </div>
 
-## 这是什么
+## What it is
 
-99AI Plugin Edition（99AI 插件版）是一套**完整未编译**的开源 AI 服务平台：用户打开就能聊天，管理员登录就能配模型、管应用、看数据。仓库里同时包含用户端、管理端和服务端，适合私有化部署和二次开发。
+99AI Plugin Edition is an **uncompiled, open-source** AI service platform. People chat in the user app; admins configure models, apps, and site data in the console. The repo ships the chat frontend, the admin frontend, and the API together, for private deployment and further development.
 
-部署需要 MySQL、Redis，以及至少一个 **OpenAI 兼容**模型服务。整合后默认监听 `9520`：用户端在 `/`，管理端在 `/admin`。
+You need MySQL, Redis, and at least one **OpenAI-compatible** model service. After an integrated deploy the process listens on `9520` by default: chat at `/`, admin at `/admin`.
 
-## 适合谁
+## Who it's for
 
-- **想自己搭一套 AI 站点的人**：Docker 或一键打包都能跑起来，先聊天、再慢慢配运营。
-- **需要后台而不是只有 Chat UI 的团队**：用户、额度、套餐、登录方式和站点外观都可以在管理端改。
-- **要改源码的开发者**：NestJS + Vue 3 全栈源码都在仓库里，插件、Agent、MCP 都有明确模块入口。
+- **People who want their own AI site.** Docker or a one-shot pack gets you chatting first; you can tighten ops later.
+- **Teams that need more than a chat box.** Users, quotas, plans, login methods, and site branding live in the admin console.
+- **Developers who will change the source.** NestJS + Vue 3 are in the repo, with clear entry points for plugins, agents, and MCP.
 
-如果你只需要一个最小聊天窗，它可能偏重；如果你希望「对话 + 插件 + 后台」在同一套产品里，它就是为此准备的。
+If you only want a tiny chat widget, this may be more than you need. If you want chat, plugins, and an ops console in one product, this is built for that.
 
-## 界面预览
+## Capabilities
 
-下面是本地部署后的实机界面，方便你先看清楚产品长什么样。
+- **Multi-model chat** — context, streaming replies; model keys are entered in the admin console, not baked into the source.
+- **Apps and plugins** — app plaza, presets, plugins, and Agent workflow orchestration.
+- **MCP tools** — connect MCP tools with permission checks; least privilege by default, granted by role.
+- **Multimodal extras** — file analysis, web search, plus image, video, music, and PPT features (enable the matching services as needed).
+- **Ops console** — users, quotas, plans / redeem codes, payments, login methods (email / SMS / WeChat, and others), and site appearance.
+- **One process to host both UIs** — chat and admin are served by the same backend, via Docker Compose or the packaged build.
 
-### 用户端
+On a fresh database with no usable model yet, the chat app tells the admin to finish model setup instead of silently creating empty sessions.
 
-对话首页：问候、说明和输入框，侧边栏可在「对话」与「插件」之间切换，也能进入应用广场。
+## Project layout
 
-![用户端对话首页](docs/assets/chat-home.png)
-
-<p align="center"><sub>对话首页（本地实机截图）</sub></p>
-
-发一条消息后的对话流：用户气泡、助手回复、底部输入区都在同一屏里。
-
-![用户端对话](docs/assets/chat-conversation.png)
-
-<p align="center"><sub>多轮对话界面（本地实机截图）</sub></p>
-
-### 管理端
-
-管理端独立登录，默认地址为 `http://服务器:9520/admin`。
-
-![管理端登录](docs/assets/admin-login.png)
-
-<p align="center"><sub>管理端登录（本地实机截图）</sub></p>
-
-登录后是站点总览：今日用户、对话等统计，以及版本更新说明。
-
-![管理端首页](docs/assets/admin-dashboard.png)
-
-<p align="center"><sub>管理端首页与数据概览（本地实机截图）</sub></p>
-
-在「模型管理」里接入 OpenAI 兼容模型，控制展示、排序和密钥。
-
-![模型设置](docs/assets/admin-models.png)
-
-<p align="center"><sub>模型列表与配置（本地实机截图）</sub></p>
-
-「应用中心」用来管理应用封面、分类和预设，同一分组下还能看到插件列表与 MCP 管理。
-
-![应用中心](docs/assets/admin-apps.png)
-
-<p align="center"><sub>应用中心（本地实机截图）</sub></p>
-
-## 核心能力
-
-- **多模型对话**：上下文管理、流式回复；模型 Key 在管理端填写，不写进源码。
-- **应用与插件**：应用广场、应用预设、插件，以及 Agent 工作流编排。
-- **MCP 工具**：可接入 MCP 工具并做权限控制；默认最小权限，按角色放行。
-- **多模态扩展**：文件分析、联网搜索，以及图片、视频、音乐、PPT 等能力（按需开启对应服务）。
-- **运营后台**：用户、额度、套餐/卡密、订单支付、登录方式（邮箱 / 短信 / 微信等）和站点外观。
-- **一体部署**：用户端与管理端由同一服务托管，Docker Compose 或整合包均可。
-
-全新数据库若还没配可用模型，用户端会提示管理员先去后台完成模型配置，而不会默默建出空会话。
-
-## 工程组成
-
-| 目录 | 技术栈 | 用途 |
+| Directory | Stack | Role |
 | --- | --- | --- |
-| [`service/`](service/README.md) | NestJS、TypeORM、MySQL、Redis | API、认证、聊天、插件、Agent、MCP、上传和支付 |
-| [`chat/`](chat/README.md) | Vue 3、Pinia、Tailwind CSS | 用户聊天端 |
-| [`admin/`](admin/README.md) | Vue 3、Element Plus、UnoCSS | 管理后台 |
+| [`service/`](service/README.md) | NestJS, TypeORM, MySQL, Redis | API, auth, chat, plugins, Agent, MCP, uploads, and payments |
+| [`chat/`](chat/README.md) | Vue 3, Pinia, Tailwind CSS | User chat app |
+| [`admin/`](admin/README.md) | Vue 3, Element Plus, UnoCSS | Admin console |
 
-更细的生产加固、HTTPS、备份和上线验收见 [部署与首次配置](docs/DEPLOYMENT_AND_CONFIGURATION.md)。
+Production hardening, HTTPS, backups, and go-live checks: [Deployment and first-time configuration](docs/DEPLOYMENT_AND_CONFIGURATION.md).
 
-## 快速开始
+## Quick start
 
-两条路，按你的环境选一条即可。
+Pick the path that matches your environment.
 
-### 方式一：Docker Compose（推荐）
+### Option A: Docker Compose (recommended)
 
-适合希望 MySQL、Redis 和应用一起拉起的部署。需要 Docker Engine 24+ 或 Docker Desktop、Compose v2，建议至少 4 核 / 8 GB 内存 / 10 GB 磁盘。
+Use this when you want MySQL, Redis, and the app started together. You need Docker Engine 24+ or Docker Desktop, Compose v2, and ideally 4 CPU cores / 8 GB RAM / 10 GB disk.
 
 ```bash
 git clone https://github.com/vastxie/99AI-plugin-edition.git
@@ -112,20 +64,20 @@ cd 99AI-plugin-edition/service
 cp .env.example .env
 ```
 
-编辑 `.env`，至少设置（`INITIAL_ADMIN_PASSWORD` 示例值为空，占位符会被拒绝）：
+Edit `.env` and set at least the following. The example `INITIAL_ADMIN_PASSWORD` is empty on purpose — placeholders are rejected.
 
 ```dotenv
-MYSQL_ROOT_PASSWORD=<独立的强随机密码>
-DB_PASS=<独立的强随机密码>
-REDIS_PASSWORD=<独立的强随机密码>
+MYSQL_ROOT_PASSWORD=<a strong unique password>
+DB_PASS=<a strong unique password>
+REDIS_PASSWORD=<a strong unique password>
 INITIAL_ADMIN_USERNAME=super
-INITIAL_ADMIN_PASSWORD=<至少 12 位的独立强密码>
-INITIAL_ADMIN_EMAIL=<管理员邮箱>
+INITIAL_ADMIN_PASSWORD=<a unique password, at least 12 characters>
+INITIAL_ADMIN_EMAIL=<admin email>
 CORS_ORIGINS=https://ai.example.com
 DB_SYNC=true
 ```
 
-首次使用全新数据库时构建并启动：
+On a brand-new database, build and start:
 
 ```bash
 docker compose up --build -d
@@ -133,21 +85,21 @@ docker compose ps
 docker compose logs --tail=200 service
 ```
 
-确认首次建表完成后，**立即**将 `DB_SYNC` 改回 `false`，再执行：
+After the first schema create finishes, set `DB_SYNC` back to `false` **immediately**, then:
 
 ```bash
 docker compose up -d --force-recreate service
 ```
 
-然后打开：
+Then open:
 
-- 用户端：`http://服务器地址:9520/`
-- 管理端：`http://服务器地址:9520/admin`
-- 健康检查：`GET /api/health`
+- Chat: `http://<host>:9520/`
+- Admin: `http://<host>:9520/admin`
+- Health check: `GET /api/health`
 
-### 方式二：一键整合打包
+### Option B: One-shot pack (`./build.sh`)
 
-面向已经有 MySQL / Redis、希望先在本机构建再拷到服务器的场景。仓库根目录的脚本会安装锁定依赖、构建三端，并输出到独立目录：
+Use this when MySQL and Redis already exist, and you want to build on one machine and copy the result to the server. The repo-root script installs locked dependencies, builds all three apps, and writes a standalone directory:
 
 ```bash
 git clone https://github.com/vastxie/99AI-plugin-edition.git
@@ -155,38 +107,38 @@ cd 99AI-plugin-edition
 ./build.sh
 ```
 
-构建完成后，整合目录位于：
+The output directory is:
 
 ```text
 99AIPluginQuickDeploy/
 ```
 
-目录里已包含服务端 `dist/`、用户端与管理端静态文件、生产依赖清单、环境变量模板和启动脚本。**生成目录内的 `README.md` 只描述该扁平布局的启动方式**；源码仓库的 `cd service` / `docker compose` 路径不适用于此目录。将该目录复制到部署服务器后执行：
+It already contains the server `dist/`, chat and admin static files, the production lockfile, an env template, and start scripts. **The `README.md` inside that directory only describes this flat layout.** The source-repo paths `cd service` and `docker compose` do not apply there. Copy the directory to the server, then:
 
 ```bash
 cp .env.example .env
-# 编辑 .env
+# edit .env
 pnpm install --prod --frozen-lockfile
 pnpm start
 ```
 
-构建环境需要 Node.js 20–24 和 pnpm 10.33.2。`99AIPluginQuickDeploy/` 不会进入 Git 或 Docker 构建上下文；再次执行脚本时，只有三端全部构建成功才会更新该目录。整合包的目录说明见 [docs/QUICK_DEPLOY.md](docs/QUICK_DEPLOY.md)。
+The build host needs Node.js 20–24 and pnpm 10.33.2. `99AIPluginQuickDeploy/` is not committed and is excluded from the Docker build context. Running the script again updates that directory only after all three apps build successfully. Layout notes: [docs/QUICK_DEPLOY.md](docs/QUICK_DEPLOY.md).
 
-## 首次配置
+## First-time configuration
 
-用 `.env` 里的超级管理员登录管理端后，建议按这个顺序走一遍：
+Sign in to the admin console with the super-admin from `.env`, then walk through this order:
 
-1. **系统管理 / 基础配置**：站点名称、正式站点 URL、Logo、语言和主题。
-2. **模型管理 / 基础设置**：模型服务 Base URL、Key 和全局模型。
-3. **模型管理 / 模型列表**：添加并启用至少一个模型，API 模型名必须与供应商目录一致。
-4. **用户管理 / 用户配置**：注册、签到、访客额度和登录方式。
-5. **存储与外部服务**：配置文件存储；邮件、短信、微信、支付等按需开启，并逐项实测。
+1. **System / Basic settings** — site name, public site URL, logo, language, and theme.
+2. **Models / Basic settings** — model service base URL, key, and global model.
+3. **Models / Model list** — add and enable at least one model. The API model name must match the provider catalog.
+4. **Users / User settings** — registration, check-in, guest quota, and login methods.
+5. **Storage and extras** — configure file storage; turn on email, SMS, WeChat, or payments only as needed, and test each one.
 
-模型服务 Key 由部署者在管理端填写。支付、邮件、短信、微信回调在正式对外前，请用真实配置各验证一次。
+Model keys are entered by the operator in the admin console. Before you go public, test payment, email, SMS, and WeChat callbacks with real configuration.
 
-## 本地开发
+## Local development
 
-要求 Node.js 20–24（推荐 22）和 pnpm 10.33.2，并准备可连接的 MySQL 与 Redis：
+Node.js 20–24 (22 recommended) and pnpm 10.33.2, plus reachable MySQL and Redis:
 
 ```bash
 git clone https://github.com/vastxie/99AI-plugin-edition.git
@@ -195,7 +147,7 @@ corepack enable
 corepack prepare pnpm@10.33.2 --activate
 ```
 
-分别安装依赖并验证：
+Install and verify each package:
 
 ```bash
 cd service && pnpm install --frozen-lockfile && pnpm test -- --runInBand && pnpm build
@@ -203,45 +155,45 @@ cd ../chat && pnpm install --frozen-lockfile && pnpm type-check && pnpm build
 cd ../admin && pnpm install --frozen-lockfile && pnpm lint && pnpm build
 ```
 
-三个工程都可在各自目录运行 `pnpm dev`。用户端开发服务器默认 `9002`，管理端默认 `9000`，接口指向 `http://127.0.0.1:9520/api`。生产环境请使用构建产物或 Docker Compose，不要直接暴露开发服务器。
+Each package can run `pnpm dev` in its own directory. Chat defaults to port `9002`, admin to `9000`, both calling `http://127.0.0.1:9520/api`. In production use the build output or Docker Compose — do not expose the dev servers.
 
-## 参与贡献
+## Contributing
 
-欢迎通过 Issues 和 Pull Requests 参与，也欢迎长期共同维护。
+Issues and pull requests are welcome, including longer-term co-maintainership.
 
-1. 先搜索现有 Issue；大型功能请先讨论目标、接口和兼容策略。
-2. Fork 仓库，从最新 `main` 拉出范围清晰的功能分支。
-3. 按改动范围运行上面的测试、类型检查、Lint 和构建。
-4. PR 里写清改动目的、验证结果、兼容性变化，以及尚未覆盖的风险。
+1. Search existing issues first. For large features, discuss goals, APIs, and compatibility before coding.
+2. Fork the repo and branch from the latest `main` with a narrow scope.
+3. Run the tests, type checks, lint, and builds that match what you changed.
+4. In the PR, say why it changed, how you verified it, what compatibility shifted, and what you did not cover.
 
-请勿提交 `.env`、Key、数据库、日志、上传文件或个人信息。安全漏洞请按 [SECURITY.md](SECURITY.md) 私密提交，不要在公开 Issue 里发布密钥、个人数据或可直接利用的复现细节。
+Do not commit `.env` files, keys, databases, logs, uploads, or personal data. Report security issues privately using [SECURITY.md](SECURITY.md) — do not post secrets, personal data, or ready-to-use exploit details in a public issue.
 
-除非另有明确声明，提交到本项目的贡献按 Apache License 2.0 第 5 节处理。
+Unless stated otherwise, contributions are under Apache License 2.0 section 5.
 
-仓库中的 `scripts/export-open-source-snapshot.sh` 是维护者用来生成干净源码快照的发布工具（仅支持 macOS，依赖 bsdtar 与 xattr），日常部署与贡献不必使用。
+`scripts/export-open-source-snapshot.sh` is a maintainer tool for clean source snapshots (macOS only; needs bsdtar and xattr). Everyday deploy and contribution flows do not use it.
 
-## 交流群
+## Community
 
-微信扫一扫，备注「99」进群交流。作者不提供私聊技术咨询，进群后请先阅读群公告。
+Scan the WeChat QR, add the remark `99`, and join the group. The author does not offer private 1:1 tech support. Read the group notice after you join.
 
-<img src="https://github.com/user-attachments/assets/9fed8343-73ae-43b0-9ce7-dc1a4c30c7a5" width="220" alt="99AI 微信交流群二维码">
+<img src="https://github.com/user-attachments/assets/9fed8343-73ae-43b0-9ce7-dc1a4c30c7a5" width="220" alt="99AI WeChat community QR code">
 
-## 部署安全提示
+## Deployment security notes
 
-- 不要提交或公开 `.env`、数据库、日志、上传文件及任何服务 Key。
-- 生产环境应启用 HTTPS、限制 `CORS_ORIGINS`、使用独立强密码，并保持 `DB_SYNC=false`。
-- MCP 工具默认保持最小权限；支付、邮件、短信和微信回调必须用正式配置实测。
-- 本地存储的 `/file` 当前为匿名静态访问，不应存放敏感、私密或受监管文件；公网使用前应增加鉴权或签名 URL。
+- Do not commit or publish `.env` files, databases, logs, uploads, or any service keys.
+- In production enable HTTPS, restrict `CORS_ORIGINS`, use unique strong passwords, and keep `DB_SYNC=false`.
+- Keep MCP tools at least privilege by default. Test payment, email, SMS, and WeChat callbacks with production-like config.
+- Local `/file` is currently anonymous static access. Do not store sensitive, private, or regulated files there. Add auth or signed URLs before you expose it on the public internet.
 
-## 免责声明
+## Disclaimer
 
-- 本项目按“现状”提供，不承诺服务持续可用，也不保证 AI 生成内容的准确性、完整性或适用于特定目的。AI 输出不应直接作为医疗、法律、金融等专业决策依据。
-- 使用者应确保拥有所使用的模型、接口、数据和内容的合法授权，并遵守所在地法律法规及上游服务条款。禁止将本项目用于违法活动或侵害他人知识产权、隐私权等合法权益。
-- 在中国大陆面向公众提供生成式人工智能服务的运营者，应按实际业务遵守[《生成式人工智能服务管理暂行办法》](https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm)、[《人工智能生成合成内容标识办法》](https://www.cac.gov.cn/2025-03/14/c_1743654685899683.htm)及其他适用规定，依法履行内容标识、安全评估、算法备案或许可等义务；内部研发或非公众服务是否适用，应根据实际场景判断。
-- 部署、运营、二次开发及 AI 生成内容产生的风险与责任由使用者承担。本说明不构成法律意见；正式运营前请结合业务所在地和服务方式进行专业合规评估。
+- This project is provided “as is.” It does not promise continuous availability, and it does not guarantee that AI output is accurate, complete, or fit for a particular purpose. Do not treat AI output as medical, legal, or financial advice.
+- You must have lawful rights to the models, APIs, data, and content you use, and you must follow local law and upstream terms. Do not use this project for illegal activity or to infringe others’ IP, privacy, or other rights.
+- Operators who offer generative AI services to the public in mainland China should follow, as their business requires, the [Interim Measures for the Management of Generative Artificial Intelligence Services](https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm), the [Measures for the Identification of AI-Generated and Synthetic Content](https://www.cac.gov.cn/2025-03/14/c_1743654685899683.htm), and other applicable rules — including content labeling, security assessments, and algorithm filing or licensing. Whether internal R&D or non-public use is in scope depends on the actual scenario.
+- You accept the risks of deploying, operating, forking, and publishing AI output. This is not legal advice. Get a professional compliance review for your location and how you offer the service before you go live.
 
-## 开源许可
+## License
 
 Copyright 2026 vastxie
 
-本项目由 `vastxie` 以 [Apache License 2.0](LICENSE) 发布。
+Published by `vastxie` under [Apache License 2.0](LICENSE).
