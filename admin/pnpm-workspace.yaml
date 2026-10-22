@@ -5,14 +5,28 @@ overrides:
   postcss: 8.5.26
   micromatch: '>=4.0.8'
   esbuild: 0.25.12
-  'axios@<1.18.0': 1.19.0
   'form-data@>=4.0.0 <4.0.6': 4.0.6
   'linkify-it@<=5.0.1': 5.0.2
   'nanoid@<3.3.17': 3.3.17
   '@babel/plugin-transform-modules-systemjs@<=7.29.3': 7.29.4
-  'brace-expansion@>=2.0.0 <2.1.4': 2.1.4
   'immutable@>=5.0.0-beta.1 <5.1.8': 5.1.8
   'nanoid@>=4.0.0 <5.1.16': 5.1.16
-  'shell-quote@<1.9.0': 1.9.0
   'svgo@>=2.0.0 <2.8.3': 2.8.3
   'browserslist@<=4.28.6': 4.28.7
+  'axios@<1.20.0': 1.20.0
+  '@xmldom/xmldom@>=0.9.0-beta.1 <0.9.12': 0.9.12
+  'brace-expansion@>=2.0.0 <2.1.6': 2.1.6
+  'follow-redirects@<1.16.1': 1.16.1
+  'handlebars@<4.7.10': 4.7.10
+  'shell-quote@<1.11.0': 1.12.0
+  'source-map-js@<1.2.2': 1.2.2
+  'markdown-it@>=14.0.0 <14.3.3': 14.3.3
+  'svgo@>=3.0.0 <3.3.5': 3.3.5
+  'launch-editor@<2.14.2': 2.14.2
+patchedDependencies:
+  braces@3.0.3: patches/braces@3.0.3.patch
+
+# Only this locally patched advisory is excepted. CI verifies every active copy first.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-vfj7-8cjw-p6xm

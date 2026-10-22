@@ -37,7 +37,7 @@
   }>();
 
   const url = defineModel<string[]>({
-    default: [],
+    default: () => [],
   });
 
   const uploadData = ref({

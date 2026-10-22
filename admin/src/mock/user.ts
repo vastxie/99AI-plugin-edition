@@ -1,5 +1,4 @@
 import { defineFakeRoute } from 'vite-plugin-fake-server/client';
-import Mock from 'mockjs';
 
 export default defineFakeRoute([
   {
@@ -9,11 +8,11 @@ export default defineFakeRoute([
       return {
         error: '',
         status: 1,
-        data: Mock.mock({
+        data: {
           account: body.account,
-          token: `${body.account}_@string`,
+          token: `${body.account}_mock-session`,
           avatar: '/favicon.ico',
-        }),
+        },
       };
     },
   },

@@ -32,6 +32,7 @@ build_project() {
   (
     cd -- "${script_dir}/${project}"
     pnpm install --frozen-lockfile --config.confirmModulesPurge=false
+    pnpm test:dependencies
     echo "==> 构建 ${project}"
     "$@"
   )
@@ -58,6 +59,7 @@ cp -a "${script_dir}/chat/dist/." "${stage_dir}/public/chat/"
 cp -- "${script_dir}/service/package.json" "${stage_dir}/package.json"
 cp -- "${script_dir}/service/pnpm-lock.yaml" "${stage_dir}/pnpm-lock.yaml"
 cp -- "${script_dir}/service/pnpm-workspace.yaml" "${stage_dir}/pnpm-workspace.yaml"
+cp -a "${script_dir}/service/patches" "${stage_dir}/patches"
 cp -- "${script_dir}/service/.env.example" "${stage_dir}/.env.example"
 cp -- "${script_dir}/service/start.sh" "${stage_dir}/start.sh"
 cp -- "${script_dir}/docs/QUICK_DEPLOY.md" "${stage_dir}/README.md"
