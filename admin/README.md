@@ -20,6 +20,7 @@ pnpm dev
 | `pnpm dev` | Vite 开发服务器 |
 | `pnpm lint` | 目前等价于 `vue-tsc` 类型检查（尚未配置 ESLint） |
 | `pnpm build` | 类型检查 + 生产构建（`vue-tsc && vite build`） |
+| `pnpm build:test` | 类型检查 + 测试模式构建，启用本地 mock，产物在 `dist-test/` |
 | `pnpm new` | Plop 生成器（新页面/组件脚手架） |
 | `pnpm generate:icons` / `pnpm svgo` | 图标数据生成与 SVG 压缩 |
 | `pnpm format` / `pnpm format:check` | Prettier 格式化 / 校验 |
@@ -27,6 +28,8 @@ pnpm dev
 ## 环境变量
 
 `.env.development` / `.env.production` / `.env.test` 只包含可公开的 Vite 构建变量（接口地址、标题与构建开关）。生产构建走 `/api` 相对路径，与服务端同域部署无需修改。依赖的 CVE 锁定维护在 [pnpm-workspace.yaml](pnpm-workspace.yaml)。
+
+测试模式直接返回本地模拟数据，其中的会话标识仅用于演示，不是真实登录凭证；正式部署使用 `pnpm build` 的 `dist/` 产物。CI 分别检查生产和测试模式构建。
 
 ## 目录结构（`src/`）
 

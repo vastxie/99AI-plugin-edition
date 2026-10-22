@@ -7,7 +7,10 @@ WORKDIR /workspace/service
 
 RUN corepack enable && corepack prepare pnpm@10.33.2 --activate
 COPY service/package.json service/pnpm-lock.yaml service/pnpm-workspace.yaml ./
+COPY service/patches ./patches
+COPY scripts/verify-braces-patch.cjs /workspace/scripts/verify-braces-patch.cjs
 RUN pnpm install --frozen-lockfile
+RUN pnpm test:dependencies
 COPY service/nest-cli.json service/tsconfig.json service/tsconfig.build.json service/tsconfig.paths.json ./
 COPY service/src ./src
 RUN pnpm build && pnpm prune --prod && touch /tmp/service-build-complete
@@ -21,7 +24,10 @@ WORKDIR /workspace/chat
 
 RUN corepack enable && corepack prepare pnpm@10.33.2 --activate
 COPY chat/package.json chat/pnpm-lock.yaml chat/pnpm-workspace.yaml chat/.pnpmfile.cjs chat/.npmrc ./
+COPY chat/patches ./patches
+COPY scripts/verify-braces-patch.cjs /workspace/scripts/verify-braces-patch.cjs
 RUN pnpm install --frozen-lockfile
+RUN pnpm test:dependencies
 COPY chat ./
 COPY --from=service-build /tmp/service-build-complete /tmp/service-build-complete
 RUN pnpm type-check && pnpm build && touch /tmp/chat-build-complete
@@ -35,7 +41,10 @@ WORKDIR /workspace/admin
 
 RUN corepack enable && corepack prepare pnpm@10.33.2 --activate
 COPY admin/package.json admin/pnpm-lock.yaml admin/pnpm-workspace.yaml admin/.npmrc ./
+COPY admin/patches ./patches
+COPY scripts/verify-braces-patch.cjs /workspace/scripts/verify-braces-patch.cjs
 RUN pnpm install --frozen-lockfile
+RUN pnpm test:dependencies
 COPY admin ./
 COPY --from=chat-build /tmp/chat-build-complete /tmp/chat-build-complete
 RUN pnpm build
